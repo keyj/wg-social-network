@@ -1,0 +1,33 @@
+<%= form_for(@page, :html => { :multipart => true }) do |f| %>
+  <% if @page.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+      <ul>
+      <% @page.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :betreff %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label 'worum geht\'s? (ganz kurz)' %><br />
+    <%= f.text_area :teaser %>
+  </div>
+  <div class="field">
+    <%= f.label 'was gibt\'s? (darf auch länger werden)' %><br />
+    <%= f.text_area :content %>
+  </div>
+	<div class="field">
+		<%= f.label 'Anhang', 'Eine Datei hochladen und anhängen?' %>
+		<%= f.file_field :attachment %>
+	</div>
+  <div class="actions">
+    <%= f.submit 'aufhängen' %>
+  </div>
+<% end %>

@@ -1,0 +1,26 @@
+<h1>Zettel auf Deinem Kühlschrank</h1>
+
+
+<% @pages.each do |page| %>
+	<div class="article">
+		<div class="articleheader">
+			<h2><%= link_to page.title, page %></h2> 
+			<div class="actions">
+				<%= link_to (image_tag('icons/View.png')), page %><%= link_to (image_tag('icons/Modify.png')), edit_page_path(page) %><%= link_to (image_tag('icons/Delete.png')), page,:confirm => 'Sicher löschen?', :method => :delete %>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<%=raw RedCloth.new(page.teaser) %>
+		<%
+=begin %>
+		<p><% if page.user != nil %>geschrieben von <%= link_to page.user.name, profile_path(page.user) %><% end %> [<%= link_to (image_tag('icons/View.png') + t('Show')), page %> | <%= link_to (image_tag('icons/Modify.png') + t('Edit')), edit_page_path(page) %> | <%= link_to (image_tag('icons/Delete.png') + t('Destroy')), page,:confirm => 'Sicher löschen?', :method => :delete %>]</p>
+<%
+=end 
+%>
+		</div>
+<% end %>
+
+
+<br />
+
+<%= link_to t('New Page'), new_page_path %>

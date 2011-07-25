@@ -1,28 +1,29 @@
-<h2>Edit Profile</h2>
+<h2>Dein Profil/Deinen Account bearbeiten</h2>
 
 <%= image_tag @user.photo.url(:thumb) %><br/>
 
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
     <% devise_error_messages! %>
 
-    <h3>About</h3>
+    <h3>persönliche Infos</h3>
     <%= f.input :name, :label => "Name" %>
-    <%= f.input :email, :label => "Email" %>
+    <%= f.input :email, :label => "E-Mail" %>
+		<%= f.input :rufname, :label => "Rufname / Kurzname" %>
     <%= f.input :slug, :label => "Personal URL" %>
 
     <br/>
-    <h3>Password</h3>
-    <%= f.input :password, :label => "Password",
-                :hint => "leave blank if you don't want to change it" %>
+    <h3>Passwort</h3>
+    <%= f.input :password, :label => "Passwort",
+                :hint => "nur ausfüllen, wenn Du es ändern möchtest" %>
 
-    <%= f.input :password_confirmation, :label => "Password Confirmation" %>
+    <%= f.input :password_confirmation, :label => "Passwort wiederholen" %>
 
-    <%= f.input :current_password, :label => "Current Password",
-                :hint => "we need your current password to confirm a password change" %>
+    <%= f.input :current_password, :label => "Dein altes Passwort",
+                :hint => "damit auch nur Du Dein Passwort ändern kannst. ;)" %>
 
     <%= f.input :photo %>
 
-    <p><%= f.submit "Update" %></p>
+    <p><%= f.submit "Speichern!" %></p>
 <% end %>
 
 <br/>

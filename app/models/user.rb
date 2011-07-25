@@ -2,6 +2,12 @@ class User < ActiveRecord::Base
   include OmniAuthPopulator
   include Sluggable
 
+	has_many :mietvertrags
+	has_many :wgs, :through => :mietvertrags
+	# Rufnummern
+	has_many :msns
+	has_many :verbindungs, :through => :msns
+
   before_validation :generate_slug, :on => :create
   
   validates_uniqueness_of :slug
@@ -44,6 +50,18 @@ class User < ActiveRecord::Base
     end
   end
 
+	def rechnungen
+		rechnungen = []
+		ids = []
+		for msn in msns
+			for id in msn.verbindungs.group('rechnung_id')
+				ids.push(id.rechnung_id) unless ids.include?(id.rechnung_id)
+			end
+		end
+		return Rechnung.find(ids, :order => 'rechnungsdatum DESC')		
+	end
+
+
   def slug_source
     :raw_slug_text
   end
@@ -80,6 +98,10 @@ class User < ActiveRecord::Base
   def populate_from_facebook(omni)
     self.name = omni['user_info']['name'] if self.name.blank?
     self.email = omni['user_info']['email'] if self.email.blank?
+		invitation = Invitation.find_by_facebookuid(omni['uid'])
+		if invitation.present?
+			self.wgs << Wg.find(invitation.wg_id)
+		end
   end
 
 #allows for account creation from twitter & fb

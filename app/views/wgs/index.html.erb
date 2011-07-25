@@ -1,0 +1,27 @@
+<h1>Listing wgs</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Beschreibung</th>
+    <th>Adresse</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @wgs.each do |wg| %>
+  <tr>
+    <td><%= wg.name %></td>
+    <td><%= wg.beschreibung %></td>
+    <td><%= wg.adresse %></td>
+    <td><%= link_to 'Show', wg %></td>
+    <td><%= link_to 'Edit', edit_wg_path(wg) %></td>
+    <td><%= link_to 'Destroy', wg, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Wg', new_wg_path %>

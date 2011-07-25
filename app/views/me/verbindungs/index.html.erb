@@ -1,0 +1,13 @@
+<h1>Deine Verbindungen</h1>
+
+
+<% for rechnung in @rechnungen %>
+	<%= render :partial => 'rechnungsverbindungen', :locals => {:rechnung => rechnung, :msns => @msns} %>
+<% end %>
+
+<% for msn in @msns %>
+<% render :partial => 'msnverbindungen', :locals => {:msn => msn} %>
+<% end %>
+<br />
+
+<% link_to 'New Verbindung', new_verbindung_path %>

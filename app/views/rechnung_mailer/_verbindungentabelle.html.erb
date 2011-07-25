@@ -1,0 +1,22 @@
+<table class="verbindungen">
+		<th>Datum/Zeit</th>
+		<th>Länge</th>
+		<th>Nummer</th>
+		<th>Kosten</th>
+		<th>Tarif</th>
+		<% if show_rechnung == true %><th>Rechnung</th><% end %>
+		<% for verbindung in verbindungen %>
+		<tr class="verbindung">
+			<td><%= verbindung.datum_raw %> <%= verbindung.zeit_raw %></td>
+			<td><%= verbindung.laenge_raw %></td>
+			<td><%= verbindung.nummer_raw %></td>
+			<td><%= number_to_currency(verbindung.betrag) %></td>
+			<td><%= verbindung.tarif_raw %></td>
+			<% if show_rechnung == true %><td><%= link_to verbindung.rechnung.rechnungsmonat, rechnung_path(verbindung.rechnung) %></td><% end %>
+		</tr>
+		<% end %>
+		<tr>
+			<td colspan="3"><b>Summe:</b></td>
+			<td><b><%= number_to_currency(verbindungen.sum(:betrag)) %></b></td>
+		</tr>
+	</table>

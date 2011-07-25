@@ -1,0 +1,6 @@
+<ul class="sb_menu">
+	<li><%= link_to 'Home', root_url %></li>
+	<li><%= link_to 'Neuen Zettel schreiben', new_page_path %></li>
+	<li><%= link_to 'Deine Rechnungen auflisten', rechnungs_path %></li>
+	<li><%= link_to 'Deine Verbindungen auflisten', verbindungs_path %></li>
+</ul>

@@ -1,0 +1,33 @@
+<%= form_for(@msn) do |f| %>
+  <% if @msn.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@msn.errors.count, "error") %> prohibited this msn from being saved:</h2>
+
+      <ul>
+      <% @msn.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :number %><br />
+    <%= f.text_field :number %>
+  </div>
+  <div class="field">
+    <%= f.label :msn_id %><br />
+    <%= f.text_field :msn_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :bemerkungen %><br />
+    <%= f.text_area :bemerkungen %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

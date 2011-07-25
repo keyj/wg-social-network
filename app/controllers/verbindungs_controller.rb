@@ -1,0 +1,83 @@
+class VerbindungsController < ApplicationController
+  # GET /verbindungs
+  # GET /verbindungs.xml
+  def index
+    @verbindungs = Verbindung.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @verbindungs }
+    end
+  end
+
+  # GET /verbindungs/1
+  # GET /verbindungs/1.xml
+  def show
+    @verbindung = Verbindung.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @verbindung }
+    end
+  end
+
+  # GET /verbindungs/new
+  # GET /verbindungs/new.xml
+  def new
+    @verbindung = Verbindung.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @verbindung }
+    end
+  end
+
+  # GET /verbindungs/1/edit
+  def edit
+    @verbindung = Verbindung.find(params[:id])
+  end
+
+  # POST /verbindungs
+  # POST /verbindungs.xml
+  def create
+    @verbindung = Verbindung.new(params[:verbindung])
+
+    respond_to do |format|
+      if @verbindung.save
+        format.html { redirect_to(@verbindung, :notice => 'Verbindung was successfully created.') }
+        format.xml  { render :xml => @verbindung, :status => :created, :location => @verbindung }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @verbindung.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /verbindungs/1
+  # PUT /verbindungs/1.xml
+  def update
+    @verbindung = Verbindung.find(params[:id])
+
+    respond_to do |format|
+      if @verbindung.update_attributes(params[:verbindung])
+        format.html { redirect_to(@verbindung, :notice => 'Verbindung was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @verbindung.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /verbindungs/1
+  # DELETE /verbindungs/1.xml
+  def destroy
+    @verbindung = Verbindung.find(params[:id])
+    @verbindung.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(verbindungs_url) }
+      format.xml  { head :ok }
+    end
+  end
+end

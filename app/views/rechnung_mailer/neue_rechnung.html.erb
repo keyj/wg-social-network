@@ -1,0 +1,20 @@
+<p>Hi <%= @user.name %>,<br />
+
+Deine neue Telefonrechnung ist ausgerechnet. Du kannst Dir anschauen, wen Du wie lange angerufen hast und was Dich der Spaß kostet. ;)</p>
+<p>Das alles gibt's unter <%= link_to me_verbindungs_url.to_s, me_verbindungs_url %>.</p>
+
+<p>Hier sind die Verbindungen und der Gesamtpreis für den Monat <%= @rechnung.rechnungsmonat %>, den Du bitte überweisen möchtest, falls Du es nicht schon getan hast. ;)</p>
+
+
+<p>Rechnung: <%= link_to @rechnung.rechnungsmonat, rechnung_url(@rechnung) %></p>
+<p>Deine Gesamtsumme: <br />
+ohne Mehrwert-Steuer: <%= number_to_currency(@gesamtsumme) %><br />
+<b>mit Mehrwert-Steuer: <%= number_to_currency(@gesamtsumme * (1 + STEUERSATZ_MWS) ) %></b></p>
+
+<% for msn in @user.msns %>
+	<%= render :partial => 'msnverbindungen', :locals => {:msn => msn} %>
+<% end %>
+
+Viele Grüße<br />
+Janko
+

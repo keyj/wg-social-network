@@ -1,0 +1,80 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Msn:</b>
+  <%= @verbindung.msn_id %>
+</p>
+
+<p>
+  <b>Rechnung:</b>
+  <%= @verbindung.rechnung_id %>
+</p>
+
+<p>
+  <b>Verbindung:</b>
+  <%= @verbindung.verbindung_id %>
+</p>
+
+<p>
+  <b>Datum raw:</b>
+  <%= @verbindung.datum_raw %>
+</p>
+
+<p>
+  <b>Datum:</b>
+  <%= @verbindung.datum %>
+</p>
+
+<p>
+  <b>Zeit raw:</b>
+  <%= @verbindung.zeit_raw %>
+</p>
+
+<p>
+  <b>Zeit:</b>
+  <%= @verbindung.zeit %>
+</p>
+
+<p>
+  <b>Laenge raw:</b>
+  <%= @verbindung.laenge_raw %>
+</p>
+
+<p>
+  <b>Laenge:</b>
+  <%= @verbindung.laenge %>
+</p>
+
+<p>
+  <b>Nummer raw:</b>
+  <%= @verbindung.nummer_raw %>
+</p>
+
+<p>
+  <b>Nummer:</b>
+  <%= @verbindung.nummer %>
+</p>
+
+<p>
+  <b>Tarif raw:</b>
+  <%= @verbindung.tarif_raw %>
+</p>
+
+<p>
+  <b>Tarif:</b>
+  <%= @verbindung.tarif_id %>
+</p>
+
+<p>
+  <b>Betrag raw:</b>
+  <%= @verbindung.betrag_raw %>
+</p>
+
+<p>
+  <b>Betrag:</b>
+  <%= @verbindung.betrag %>
+</p>
+
+
+<%= link_to 'Edit', edit_verbindung_path(@verbindung) %> |
+<%= link_to 'Back', verbindungs_path %>

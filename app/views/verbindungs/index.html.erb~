@@ -1,0 +1,55 @@
+<h1>Listing verbindungs</h1>
+
+<% content_for :sidebar do %>
+	test
+<% end %>
+
+<table>
+  <tr>
+    <th>Msn</th>
+    <th>Rechnung</th>
+    <th>Verbindung</th>
+    <th>Datum raw</th>
+    <th>Datum</th>
+    <th>Zeit raw</th>
+    <th>Zeit</th>
+    <th>Laenge raw</th>
+    <th>Laenge</th>
+    <th>Nummer raw</th>
+    <th>Nummer</th>
+    <th>Tarif raw</th>
+    <th>Tarif</th>
+    <th>Betrag raw</th>
+    <th>Betrag</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @verbindungs.each do |verbindung| %>
+  <tr>
+    <td><%= verbindung.msn_id %></td>
+    <td><%= verbindung.rechnung_id %></td>
+    <td><%= verbindung.verbindung_id %></td>
+    <td><%= verbindung.datum_raw %></td>
+    <td><%= verbindung.datum %></td>
+    <td><%= verbindung.zeit_raw %></td>
+    <td><%= verbindung.zeit %></td>
+    <td><%= verbindung.laenge_raw %></td>
+    <td><%= verbindung.laenge %></td>
+    <td><%= verbindung.nummer_raw %></td>
+    <td><%= verbindung.nummer %></td>
+    <td><%= verbindung.tarif_raw %></td>
+    <td><%= verbindung.tarif_id %></td>
+    <td><%= verbindung.betrag_raw %></td>
+    <td><%= verbindung.betrag %></td>
+    <td><%= link_to 'Show', verbindung %></td>
+    <td><%= link_to 'Edit', edit_verbindung_path(verbindung) %></td>
+    <td><%= link_to 'Destroy', verbindung, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Verbindung', new_verbindung_path %>

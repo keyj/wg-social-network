@@ -1,0 +1,25 @@
+<h2>Einloggen</h2>
+<h3>mit Facebook und Co</h3>
+<%= render :partial => "devise/shared/social" %>
+
+<h2>oder</h2>
+<h3>mit Email/Passwort</h3>
+
+<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+
+    <%= f.input :email, :label => "Email" %>
+    <%= f.input :password, :label => "Password" %>
+
+    <% if devise_mapping.rememberable? -%>
+      <%= f.input :remember_me, :label => "Always keep me logged in", :as => :boolean %>
+    <% end -%>
+
+    <p><%= f.submit "Anmelden" %></p>
+
+<% end %>
+<%= render :partial => "devise/shared/forgot_password" %>
+
+
+
+
+

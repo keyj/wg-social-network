@@ -16,4 +16,14 @@ module ApplicationHelper
     "<div class=\"alert\">#{alert}</div>" unless alert.blank?
   end
 
+	def sidebar
+		begin
+			content_for :sidebar do
+				render :partial => 'sidebar'
+			end
+		rescue
+			return false
+		end
+	end
+
 end

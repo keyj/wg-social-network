@@ -1,0 +1,35 @@
+<h1>Listing invitations</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Facebookuid</th>
+    <th>Email</th>
+    <th>Secret</th>
+    <th>Sent by</th>
+    <th>To email</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @invitations.each do |invitation| %>
+  <tr>
+    <td><%= invitation.name %></td>
+    <td><%= invitation.facebookuid %></td>
+    <td><%= invitation.email %></td>
+    <td><%= invitation.secret %></td>
+    <td><%= invitation.sent_by %></td>
+    <td><%= invitation.to_email %></td>
+    <td><%= invitation.status %></td>
+    <td><%= link_to 'Show', invitation %></td>
+    <td><%= link_to 'Edit', edit_invitation_path(invitation) %></td>
+    <td><%= link_to 'Destroy', invitation, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Invitation', new_invitation_path %>

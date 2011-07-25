@@ -1,0 +1,10 @@
+<div class="msn">
+	Für Deine Telefonnummer <b><%= msn.number %></b>
+	<% for rechnungsnummer in msn.verbindungs.group(:rechnung_id) %>
+		<% rechnung = Rechnung.find(rechnungsnummer.rechnung_id) %>
+		<br />Rechnung: <%= link_to rechnung.rechnungsmonat, rechnung %>
+		<% verbindungen = msn.verbindungs.where(:rechnung_id => rechnung.id) %>
+		<%= render :partial => 'verbindungentabelle', :locals => {:verbindungen => verbindungen, :show_rechnung => false} %>
+	<% end %>
+	<% render :partial => 'verbindungentabelle', :locals => {:verbindungen => msn.verbindungs, :show_rechnung => true} %>
+</div>

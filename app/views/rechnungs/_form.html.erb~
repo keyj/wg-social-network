@@ -1,0 +1,36 @@
+<%= form_for(@rechnung,:html => { :multipart => true }) do |f| %>
+  <% if @rechnung.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rechnung.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+      <ul>
+      <% @rechnung.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<% if @rechnung.wg_id? %>
+	<div class="field">
+		<%= f.label :deine_wg, 'Deine WG: '%> <%= @rechnung.wg.name %>
+	</div>
+	<% end %>
+  <div class="field">
+    <%= f.label :rechnungsnummer %><br />
+    <%= f.text_field :rechnungsnummer %>
+  </div>
+
+	<div class="field">
+		<%= f.label :rechnungsdatei %><br />
+		<%= f.file_field :rechnungsdatei %>
+	</div>
+
+	<div class="field">
+		<%= f.label :verbindungendatei %><br />
+		<%= f.file_field :verbindungendatei %>
+	</div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

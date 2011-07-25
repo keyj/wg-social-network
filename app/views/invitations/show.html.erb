@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @invitation.name %>
+</p>
+
+<p>
+  <b>Facebookuid:</b>
+  <%= @invitation.facebookuid %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @invitation.email %>
+</p>
+
+<p>
+  <b>Secret:</b>
+  <%= @invitation.secret %>
+</p>
+
+<p>
+  <b>Sent by:</b>
+  <%= @invitation.sent_by %>
+</p>
+
+<p>
+  <b>To email:</b>
+  <%= @invitation.to_email %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @invitation.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_invitation_path(@invitation) %> |
+<%= link_to 'Back', invitations_path %>

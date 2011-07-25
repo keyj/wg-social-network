@@ -10,7 +10,74 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110326070436) do
+ActiveRecord::Schema.define(:version => 20110717170451) do
+
+  create_table "invitations", :force => true do |t|
+    t.string   "name"
+    t.string   "facebookuid"
+    t.string   "email"
+    t.string   "secret"
+    t.integer  "sent_by"
+    t.string   "to_email"
+    t.integer  "status"
+    t.integer  "wg_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "mietvertrags", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "wg_id"
+    t.date     "start"
+    t.date     "ende"
+    t.float    "miete"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "msns", :force => true do |t|
+    t.string   "number"
+    t.string   "msn_id"
+    t.integer  "user_id"
+    t.text     "bemerkungen"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pages", :force => true do |t|
+    t.string   "title"
+    t.text     "teaser"
+    t.text     "content"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+  end
+
+  create_table "rechnungs", :force => true do |t|
+    t.string   "rechnungsnummer"
+    t.date     "rechnungsdatum"
+    t.integer  "wg_id"
+    t.integer  "status_id"
+    t.integer  "provider_id"
+    t.text     "logs"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "rechnungsmonat"
+    t.string   "kundennummer"
+    t.string   "jahr"
+    t.string   "rechnungsdatei_file_name"
+    t.string   "rechnungsdatei_content_type"
+    t.integer  "rechnungsdatei_file_size"
+    t.datetime "rechnungsdatei_updated_at"
+    t.string   "verbindungendatei_file_name"
+    t.string   "verbindungendatei_content_type"
+    t.integer  "verbindungendatei_file_size"
+    t.datetime "verbindungendatei_updated_at"
+  end
 
   create_table "sharings", :force => true do |t|
     t.string   "content"
@@ -51,9 +118,38 @@ ActiveRecord::Schema.define(:version => 20110326070436) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.string   "slug"
+    t.string   "rufname"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "verbindungs", :force => true do |t|
+    t.string   "msn_id"
+    t.integer  "rechnung_id"
+    t.integer  "verbindung_id"
+    t.string   "datum_raw"
+    t.date     "datum"
+    t.string   "zeit_raw"
+    t.time     "zeit"
+    t.string   "laenge_raw"
+    t.integer  "laenge"
+    t.string   "nummer_raw"
+    t.string   "nummer"
+    t.string   "tarif_raw"
+    t.integer  "tarif_id"
+    t.string   "betrag_raw"
+    t.decimal  "betrag"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "wgs", :force => true do |t|
+    t.string   "name"
+    t.text     "beschreibung"
+    t.text     "adresse"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

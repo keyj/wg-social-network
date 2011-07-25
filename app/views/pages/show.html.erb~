@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<h2><span><%= @page.title %></span></h2>
+<div class="clr"></div>
+<p><% if @page.user != nil %><span class="author">geschrieben von <%= link_to @page.user.name, profile_path(@page.user) %> &nbsp;| &nbsp; <% end %><%= l(@page.created_at, :format => :short) %></span></p>
+
+<%= raw RedCloth.new(@page.teaser).to_html %>
+
+<%=raw RedCloth.new(@page.content).to_html %>
+
+<% if @page.attachment.file? %>
+<%= link_to (image_tag('icons/Download.png') + " Anhang herunterladen"), @page.attachment.url %>
+<p></p>
+<% end %>
+
+
+<%= link_to 'Edit', edit_page_path(@page) %> |
+<%= link_to 'Back', pages_path %>

@@ -1,4 +1,22 @@
 OmniauthDeviseExample::Application.routes.draw do
+  
+	
+  resources :msns
+
+	resources :rechnungs
+	resources :verbindungs
+  resources :invitations
+
+  resources :wgs do
+		resources :rechnungs, :path => "rechnungen"
+	end
+
+	namespace :me do
+		resources :verbindungs, :path => "verbindungen"
+	end
+
+  resources :pages
+
   resources :sharings
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => 'registrations'}
   
@@ -51,7 +69,7 @@ OmniauthDeviseExample::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "sharings#index"
+  root :to => "pages#index"
 
   # See how all your routes lay out with "rake routes"
 

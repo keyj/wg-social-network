@@ -1,0 +1,45 @@
+<%= form_for(@invitation) do |f| %>
+  <% if @invitation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@invitation.errors.count, "error") %> prohibited this invitation from being saved:</h2>
+
+      <ul>
+      <% @invitation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :facebookuid %><br />
+    <%= f.text_field :facebookuid %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :secret %><br />
+    <%= f.text_field :secret %>
+  </div>
+  <div class="field">
+    <%= f.label :sent_by %><br />
+    <%= f.text_field :sent_by %>
+  </div>
+  <div class="field">
+    <%= f.label :to_email %><br />
+    <%= f.text_field :to_email %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

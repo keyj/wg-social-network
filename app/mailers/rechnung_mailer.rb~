@@ -1,0 +1,10 @@
+class RechnungMailer < ActionMailer::Base
+  default :from => "janko@keyj.de"
+
+	def neue_rechnung(user,rechnung)
+		@user = user
+		@rechnung = rechnung
+		subject = "neue Telefonrechnung für "
+		mail(:to => "#{user.name} <#{user.email}>", :subject => subject)
+	end
+end

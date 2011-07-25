@@ -1,0 +1,29 @@
+<h1>Listing msns</h1>
+
+<table>
+  <tr>
+    <th>Number</th>
+    <th>Msn</th>
+    <th>User</th>
+    <th>Bemerkungen</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @msns.each do |msn| %>
+  <tr>
+    <td><%= msn.number %></td>
+    <td><%= msn.msn_id %></td>
+    <td><%= msn.user_id %></td>
+    <td><%= msn.bemerkungen %></td>
+    <td><%= link_to 'Show', msn %></td>
+    <td><%= link_to 'Edit', edit_msn_path(msn) %></td>
+    <td><%= link_to 'Destroy', msn, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Msn', new_msn_path %>

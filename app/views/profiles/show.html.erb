@@ -1,12 +1,28 @@
 <h1><%= @user.display_name %>'s Profile</h1>
 
-<%= image_tag @user.photo.url %><br/>
-<%= image_tag @user.photo.url(:mini) %><br/>
-<%= image_tag @user.photo.url(:thumb) %><br/>
-<%= image_tag @user.photo.url(:small) %><br/>
-<%= image_tag @user.photo.url(:big) %><br/>
+<!-- 
+<% image_tag @user.photo.url %><br/>
+<% image_tag @user.photo.url(:mini) %><br/>
+<% image_tag @user.photo.url(:thumb) %><br/>
+<% image_tag @user.photo.url(:small) %><br/>
+<% image_tag @user.photo.url(:big) %><br/>
+-->
 
 <div>
+	Dein Photo: <%= image_tag @user.photo.url(:mini) %><br />
   Name: <%= @user.name   %><br/>
   email: <%= @user.email %><br/>
+</div>
+
+<div>
+	<%= link_to t('Edit Profile'), edit_user_registration_path(current_user) %>
+</div>
+
+<div>
+	<h3>WG(s)</h3>
+		<ul>
+		<% for wg in @user.wgs %>
+			<li><%= link_to wg.name, wg %></li>
+		<% end %>
+		</ul>
 </div>

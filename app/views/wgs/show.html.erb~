@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Deine WG</h2>
+	<h3><%= @wg.name %></h3>
+
+<p><i><%= @wg.beschreibung %></i></p>
+
+
+<p>
+  <b>Adresse:</b>
+  <%=raw RedCloth.new(@wg.adresse).to_html %>
+</p>
+
+<p>Deine Mitbewohner:</p>
+<div id="wgmitbewohner">
+<% for user in @wg.users %>
+	<div class="mitbewohner"><%= image_tag user.photo.url(:mini) %> <%= user.name %></div>
+<% end %>
+</div>
+
+<%= link_to 'Edit', edit_wg_path(@wg) %> |
+<%= link_to 'Back', wgs_path %>

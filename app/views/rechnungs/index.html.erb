@@ -1,0 +1,24 @@
+<h1>die Rechnungen Deiner WG</h1>
+<% for rechnung in @rechnungen %>
+	<div class="article">
+	<% if @wg.present? %>
+		<%= link_to (image_tag('icons/List.png', :border => 0, :alt => 'Rechnung') + " " + rechnung.rechnungsmonat), wg_rechnung_path(@wg.id,rechnung) %> - <%= rechnung.try(:rechnungsnummer) %> 
+	<% else %>
+		<%= link_to (image_tag('icons/List.png', :border => 0, :alt => 'Rechnung') + " " + rechnung.rechnungsmonat), rechnung %> - <%= rechnung.try(:rechnungsnummer) %> 
+	<% end %>
+	<% if rechnung.rechnungsdatum? %>
+		- <%= l(rechnung.try(:rechnungsdatum)) %> 
+	<% end %>
+	<% if rechnung.rechnungsdatei.file? %> 
+		-	<%= link_to (image_tag('icons/Download.png', :border => 0, :alt => 'Download') + ' Rechnung'), rechnung.rechnungsdatei.url %> 
+	<% end %>
+	<% if rechnung.verbindungendatei.file? %> 
+		-	<%= link_to (image_tag('icons/Download.png', :border => 0, :alt => 'Download') + ' EVN'), rechnung.verbindungendatei.url %> 
+	<% end %>
+	<% link_to (image_tag('icons/Delete.png') ), rechnung,:confirm => 'Are you sure?', :method => :delete %>
+	</div>
+<% end %>
+
+<% if @wg.present? %>
+<p><%= link_to 'neue Rechnung hochladen', new_wg_rechnung_path %></p>
+<% end %>

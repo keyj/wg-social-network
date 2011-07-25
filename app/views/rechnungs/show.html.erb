@@ -1,0 +1,43 @@
+<% if @wg.present? %>
+	<%= link_to image_tag('icons/Back.png'), wg_rechnungs_path(@wg) %>
+<% else %>
+	<%= link_to image_tag('icons/Back.png'), rechnungs_path %>
+<% end %>
+<h2>Rechnung anzeigen</h2>
+
+<div class="rechnungsdetails">
+	<table>
+<% attributes = {:rechnungsnummer => @rechnung.rechnungsnummer, :rechnungsdatum => @rechnung.rechnungsdatum } %>
+		<tr>
+			<td>Rechnungsnummer</td>
+			<td><%= @rechnung.rechnungsnummer %></td>
+		</tr>
+		<tr>
+			<td>Rechnungsdatum</td>
+			<td><%= l(@rechnung.rechnungsdatum, :format => :long) %></td>
+		</tr>
+		<tr>
+			<td>Rechnungsmonat</td>
+			<td><%= @rechnung.rechnungsmonat %></td>
+		</tr>
+		<tr>
+			<td>Rechnung (PDF)</td>
+			<td><%= link_to (image_tag('icons/Download.png') + " herunterladen"), @rechnung.rechnungsdatei.url%></td>
+		</tr>
+		<% if @rechnung.verbindungendatei.file? %>
+		<tr>
+			<td>Einzelverbindungsnachweis / EVN (PDF)</td>
+			<td><%= link_to (image_tag('icons/Download.png') + " herunterladen"), @rechnung.verbindungendatei.url%></td>
+		</tr>
+		<% end %>
+
+	</table>
+</div>
+
+
+<% raw RedCloth.new(@rechnung.inspect).to_html %>
+
+<% raw RedCloth.new(@rechnung.verbindungs.inspect).to_html %>
+
+<h3>Verbindungen in dieser Rechnung</h3>
+<%= render :partial => 'me/verbindungs/verbindungentabelle', :locals => {:verbindungen => @rechnung.verbindungs, :show_rechnung => false} %>

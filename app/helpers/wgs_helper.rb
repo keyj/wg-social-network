@@ -1,0 +1,2 @@
+module WgsHelper
+end

@@ -1,0 +1,77 @@
+<%= form_for(@verbindung) do |f| %>
+  <% if @verbindung.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@verbindung.errors.count, "error") %> prohibited this verbindung from being saved:</h2>
+
+      <ul>
+      <% @verbindung.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :msn_id %><br />
+    <%= f.text_field :msn_id %>
+  </div>
+  <div class="field">
+    <%= f.label :rechnung_id %><br />
+    <%= f.text_field :rechnung_id %>
+  </div>
+  <div class="field">
+    <%= f.label :verbindung_id %><br />
+    <%= f.text_field :verbindung_id %>
+  </div>
+  <div class="field">
+    <%= f.label :datum_raw %><br />
+    <%= f.text_field :datum_raw %>
+  </div>
+  <div class="field">
+    <%= f.label :datum %><br />
+    <%= f.date_select :datum %>
+  </div>
+  <div class="field">
+    <%= f.label :zeit_raw %><br />
+    <%= f.text_field :zeit_raw %>
+  </div>
+  <div class="field">
+    <%= f.label :zeit %><br />
+    <%= f.time_select :zeit %>
+  </div>
+  <div class="field">
+    <%= f.label :laenge_raw %><br />
+    <%= f.text_field :laenge_raw %>
+  </div>
+  <div class="field">
+    <%= f.label :laenge %><br />
+    <%= f.text_field :laenge %>
+  </div>
+  <div class="field">
+    <%= f.label :nummer_raw %><br />
+    <%= f.text_field :nummer_raw %>
+  </div>
+  <div class="field">
+    <%= f.label :nummer %><br />
+    <%= f.text_field :nummer %>
+  </div>
+  <div class="field">
+    <%= f.label :tarif_raw %><br />
+    <%= f.text_field :tarif_raw %>
+  </div>
+  <div class="field">
+    <%= f.label :tarif_id %><br />
+    <%= f.text_field :tarif_id %>
+  </div>
+  <div class="field">
+    <%= f.label :betrag_raw %><br />
+    <%= f.text_field :betrag_raw %>
+  </div>
+  <div class="field">
+    <%= f.label :betrag %><br />
+    <%= f.text_field :betrag %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
