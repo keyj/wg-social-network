@@ -1,6 +1,8 @@
 class Rechnung < ActiveRecord::Base
 	has_many :verbindungs, :dependent => :destroy
 	belongs_to :wg
+	has_many :abrechnungs
+	has_many :users, :through => :abrechnungs
 
 	
 	# Dateien zum Download
@@ -42,7 +44,7 @@ class Rechnung < ActiveRecord::Base
 		outfile = infile.gsub(/\.pdf/,".txt")
 		feedback = convertinput(infile)
 		puts feedback[0]
-		filedata = parseinput(feedback[1])
+		filedata = parse_verbindungsdatei(feedback[1])
 		rechnung.update_attributes(filedata[:metadaten])
 		rechnung.save_raw_fileinput(filedata)
 		if rechnung.save
@@ -57,7 +59,59 @@ class Rechnung < ActiveRecord::Base
 		return [feedback,outfile]
 	end
 
-	def self.parseinput(infile)
+	def self.parse_rechnungsdatei(infile)
+		rechnungsbetragpat = /Rechnungsbetrag in EUR\s+(\d+,\d+)/
+		nettobetragpat = /Nettobetrag\s+(\d+,\d+)/
+		rechnungsnummer_pat = /Rechnungs-Nr\.:\s+(\d+)$/ # Rechnungsnummer
+		kundennummer_pat = /Kunden-Nr\.:\s+(\d+)$/ 			# Kundennummer
+		rdpat = /Rechnungsdatum:\s+(.*?)$/							# Rechnungsdatum
+		rmpat = /Rechnungsmonat:\s+(.*?)(\d\d\d\d)$/		# Rechnungsmonat
+		metadaten = {
+			:rechnungsdatum => "", 
+			:rechnungsmonat => "",
+			:jahr => Time.now.year.to_s }
+		f = File.open(infile, "r")
+    puts "reading file"
+    f.each_line do |line|
+			# puts line
+			if matches = rechnungsbetragpat.match(line)
+				rechnungsbetrag = matches[1]
+				puts rechnungsbetrag
+			end
+			
+			if matches = nettobetragpat.match(line)
+				nettobetrag = matches[1]
+				puts nettobetrag
+			end
+		
+			# Rechnungsnummer lesen
+			if matches = rechnungsnummer_pat.match(line)
+				metadaten[:rechnungsnummer] = matches[1]
+				puts matches[1]
+			end
+
+			# Kundennummer lesen
+			if matches = kundennummer_pat.match(line)
+				metadaten[:kundennummer] = matches[1]
+				puts matches[1]
+			end
+			
+			# Rechnungsdatum lesen
+			if matches = rdpat.match(line)
+				metadaten[:rechnungsdatum] = matches[1]
+			end
+	
+			# Rechnungsmonat lesen
+			if matches = rmpat.match(line)
+				metadaten[:rechnungsmonat] = matches[1] + matches[2]
+				metadaten[:jahr] = matches[2]
+				puts matches[1]
+			end
+		end
+		return metadaten
+	end	
+
+	def self.parse_verbindungsdatei(infile)
 		# initialize the needed variables
 		# pattern = /^\s*(\d+)\s*(.*?)\s+(.*?)\s+(.*?)\s\s\s*(.*?)\s+([A-Z]\s*[A-Z]+)\s+\s+(\d+,\d\d\d\d)/
 		pattern = /^\s*(\d+)\s*(.*?)\s+(.*?:.*?:.*?)\s+(.*?:.*?:.*?)\s\s\s*(.*?)\s+([A-Z]\s*[A-Z]+)\s+\s+(\d+,\d\d\d\d)/

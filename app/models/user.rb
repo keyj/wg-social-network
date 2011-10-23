@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
 	# Rufnummern
 	has_many :msns
 	has_many :verbindungs, :through => :msns
+	has_many :abrechnungs
+	has_many :rechnungs, :through => :abrechnungs
 
   before_validation :generate_slug, :on => :create
   
@@ -40,7 +42,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :omniauthable, :validatable #:flexible_devise_validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :slug
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :slug, :rufname, :photo
 
   def self.new_with_session(params, session)
     super.tap do |user|

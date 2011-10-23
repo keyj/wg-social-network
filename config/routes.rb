@@ -1,6 +1,6 @@
 OmniauthDeviseExample::Application.routes.draw do
   
-	
+	# MSNs -> should be just for admins	
   resources :msns
 
 	resources :rechnungs
@@ -8,7 +8,9 @@ OmniauthDeviseExample::Application.routes.draw do
   resources :invitations
 
   resources :wgs do
-		resources :rechnungs, :path => "rechnungen"
+		resources :rechnungs, :path => "rechnungen" do
+  		resources :abrechnungs, :path => "abrechnungen"
+		end
 	end
 
 	namespace :me do

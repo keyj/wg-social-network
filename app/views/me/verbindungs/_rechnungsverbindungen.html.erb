@@ -1,6 +1,7 @@
 <div class="msn">
 		<h3>Rechnung: <%= link_to rechnung.rechnungsmonat, rechnung %></h3>
-		<p><i><b>Gesamtsumme: <%= number_to_currency(rechnung.verbindungs.sum('betrag') * (1 + STEUERSATZ_MWS)) %> (inkl. MwSt);</b> <%= number_to_currency(rechnung.verbindungs.sum('betrag')) %> (ohne MwSt)</i></p>
+		<% gesamtsumme = Verbindung.where(:rechnung_id => rechnung.id).where(:msn_id => current_user.msns.map {|m| m.msn_id} ).sum(:betrag) %>
+		<p><i><b>Gesamtsumme: <%= number_to_currency(gesamtsumme * (1 + STEUERSATZ_MWS)) %> (inkl. MwSt);</b> <%= number_to_currency(gesamtsumme) %> (ohne MwSt)</i></p>
 		<% for msn in msns %>
 		<h4>davon für Telefonnummer <%= msn.number %>:</h4>
 			<% verbindungen = rechnung.verbindungs.where(:msn_id => msn.msn_id) %>

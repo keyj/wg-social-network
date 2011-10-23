@@ -41,3 +41,59 @@
 
 <h3>Verbindungen in dieser Rechnung</h3>
 <%= render :partial => 'me/verbindungs/verbindungentabelle', :locals => {:verbindungen => @rechnung.verbindungs, :show_rechnung => false} %>
+
+
+<% if @wg.present? %>
+	<h3>Verteilung auf die Mitbewohner</h3>
+	<div class="mitbewohnerliste">
+		<% alle_verbindungen = @rechnung.verbindungs.all %>
+		<% einzelsummen = 0 %>
+		<table>
+		<% for user in @wg.users %>
+			<tr>
+			<% anteil = @rechnung.verbindungs.where(:msn_id => user.msns.map {|m| m.msn_id }).sum(:betrag) %>
+			<% einzelsummen = einzelsummen + anteil %>
+			<div class="mitbewohner">
+				<td><%= user.name %></td>
+				<td><%= number_to_currency(anteil) %></td>
+				<td style="padding-left:10px;"><%= form_for(Abrechnung.new(
+											:rechnung_id => @rechnung.id, :user_id => user.id ), 
+											:url => wg_rechnung_abrechnungs_path(@wg,@rechnung)) do |f| %>
+					<%= f.hidden_field :rechnung_id %>
+					<%= f.hidden_field :user_id %>
+					<%= image_submit_tag('icons/mail.png', :alt => "Abrechnungs-Mail zuschicken") %> (Abrechnungs-Mail verschicken)
+				<% end %>
+				 <%  
+				link_to(
+					image_tag('icons/mail.png', :alt => "E-Mail") + 'Abrechnungs-Mail schicken', 
+					wg_rechnung_abrechnung_path(@wg,@rechnung,user.id) 
+				)  
+				%></td>
+			</div>
+			</tr>
+		<% end %>
+		<tr>
+			<td><b>Summe der Mitbewohneranteile: </b></td>
+			<td><b><%= number_to_currency(einzelsummen) %></b></td>
+			<td style="padding-left:10px;"><% 'Allen eine Abrechnungsmail schicken' %></td>
+		</tr>
+		</table>
+	</div>
+
+	<h4>Ist damit alles bezahlt?</h4>
+	<table>
+		<tr>
+			<td>Summe in der Rechnung:</td>
+			<% rechnungssumme = @rechnung.verbindungs.sum(:betrag) %>
+			<td><%= number_to_currency(rechnungssumme) %></td>
+		</tr>
+		<tr>
+			<td>Summe der Mitbewohner:</td>
+			<td><%= number_to_currency(einzelsummen) %></td>
+		</tr>
+		<tr>
+			<td><b><i>Differenz</i></b></td>
+			<td><b><i><% if (rechnungssumme - einzelsummen < 0.001) %><span style="color:green"><% else %><span style="color:red"><% end %><%= number_to_currency(einzelsummen - rechnungssumme) %></span></i></b></td>
+		</tr>
+	</table>
+<% end %>
