@@ -1,0 +1,28 @@
+<h1>Abrechnungen zu dieser Rechnung</h1>
+<%= link_to image_tag('icons/Back.png', :border => 0), wg_rechnung_path(@wg,@rechnung) %>
+
+<table>
+  <tr>
+    <th>Mitbewohner</th>
+    <th>Datum</th>
+    <th>bezahlt</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @abrechnungs.each do |abrechnung| %>
+	<% if abrechnung.rechnung.present? && abrechnung.user.present? %>
+  <tr>
+    <td><%= abrechnung.user.try(:name) %></td>
+    <td><%= l(abrechnung.created_at) %></td>
+    <td><%= abrechnung.bezahlt %></td>
+    <td><%= link_to 'Show', wg_rechnung_abrechnung_path(abrechnung.rechnung.try(:wg),abrechnung.rechnung,abrechnung.id) %></td>
+    <td><%= link_to 'Edit', edit_wg_rechnung_abrechnung_path(abrechnung.rechnung.try(:wg),abrechnung.rechnung,abrechnung.id) %></td>
+  </tr>
+	<% end %>
+<% end %>
+</table>
+
+<br />
+
